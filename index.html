@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Just One Question 💫</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         * {
@@ -14,18 +15,20 @@
         }
 
         body {
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 16px;
             overflow: hidden;
         }
 
         .box {
-            background: white;
-            width: 340px;
-            padding: 35px;
+            background: #fff;
+            width: 100%;
+            max-width: 360px;
+            padding: 30px 24px;
             border-radius: 22px;
             text-align: center;
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
@@ -33,31 +36,33 @@
 
         h1 {
             color: #764ba2;
+            font-size: 22px;
             margin-bottom: 12px;
             transition: opacity 0.4s ease;
         }
 
         p {
             color: #555;
-            margin-bottom: 25px;
-            font-size: 15px;
-            line-height: 1.4;
+            font-size: 14.5px;
+            line-height: 1.5;
+            margin-bottom: 24px;
             transition: opacity 0.4s ease;
         }
 
         .btns {
             position: relative;
-            height: 55px;
+            height: 60px;
             transition: opacity 0.4s ease;
         }
 
         button {
-            padding: 11px 24px;
+            padding: 12px 26px;
             border: none;
-            border-radius: 25px;
-            font-size: 16px;
+            border-radius: 30px;
+            font-size: 15px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: transform 0.3s ease;
+            touch-action: manipulation;
         }
 
         #yes {
@@ -65,21 +70,30 @@
             color: white;
         }
 
+        #yes:active {
+            transform: scale(0.95);
+        }
+
         #no {
             background: #eee;
             color: #333;
             position: absolute;
-            left: 130px;
+            left: 140px;
         }
 
         .special {
             display: none;
-            margin-top: 22px;
+            margin-top: 20px;
+        }
+
+        .special p {
+            font-size: 14px;
+            margin-bottom: 10px;
         }
 
         .special h2 {
             color: #764ba2;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 600;
             animation: fadeUp 0.8s ease forwards;
         }
@@ -87,12 +101,23 @@
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(12px);
             }
 
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .special h2 {
+                font-size: 22px;
             }
         }
     </style>
@@ -115,7 +140,10 @@
         </div>
 
         <div class="special" id="special">
-            <p>Life me bahut kuch khoya hai maine… lekin tum mere liye bahut khaas ho ❤️</p>
+            <p>
+                Life me bahut kuch khoya hai maine…
+                lekin tum mere liye bahut khaas ho ❤️
+            </p>
             <h2>I love you babu ❤️</h2>
         </div>
     </div>
@@ -125,15 +153,20 @@
         const yesBtn = document.getElementById("yes");
         const special = document.getElementById("special");
         const btns = document.querySelector(".btns");
-
         const title = document.getElementById("question-title");
         const text = document.getElementById("question-text");
 
-        noBtn.addEventListener("mouseover", () => {
-            const x = Math.random() * 220 - 110;
-            const y = Math.random() * 120 - 60;
+        function moveNoButton() {
+            const x = Math.random() * 180 - 90;
+            const y = Math.random() * 100 - 50;
             noBtn.style.transform = `translate(${x}px, ${y}px)`;
-        });
+        }
+
+        // Desktop
+        noBtn.addEventListener("mouseover", moveNoButton);
+
+        // Mobile
+        noBtn.addEventListener("touchstart", moveNoButton);
 
         yesBtn.addEventListener("click", () => {
             btns.style.opacity = "0";
